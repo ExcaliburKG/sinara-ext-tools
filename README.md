@@ -45,12 +45,23 @@ bash run.sh
 bash remove.sh
 ```
 
-# Let's create a simple ML pipeline
+# Let's create and vizualize ML pipeline
+
+We are going to create the followin ML pipeline:
 
 ![the picture](examples/example.png)
 
-Once your Sinara single use was deployed, you should create Git repositories for your ML pipeline's steps.
-Each step is based on this template repository https://dev.azure.com/swat-team/mlbox/_git/mlbox_step_template by using README.md
+Clone this repo:
+1. https://github.com/4-DS/sinara-ext-tools.git
+
+Here you can find a simple tools for all you demands.
+
+1. Run ```bash create_pipeline.sh```and create your pipeline structure in GitHub with as many steps as you want.
+Repositories for your pipeline steps will be created.
+Under the hood, each step is based on that template repository (see details at https://github.com/4-DS/step_template/blob/main/README.md).
+
+2. Go to steps folders and define interfaces.
+
 In each step you must define:
 - inputs
 - outputs
@@ -62,20 +73,23 @@ In each step you must define:
 Inputs are some previous steps outputs.
 Outputs are some results of a step.
 Inputs/outputs are formed base on a special run name which is 'run-%timestamp%'
+Custom inputs/outputs are some custom data with fixed path.
+Tmp inputs are cache data produced from previous steps.
+Tmp outputs are cache data produced from current steps.
 
-Custom inputs/outputs
+3. Build design of your ML pipeline by running
+```visualize.ipynb```
 
-See the ready steps step1-4 of pipeline with the name 'pipeline0' at 
+Also, you can try a ready example.
+
+See the ready steps step1-4 of pipeline with the name 'pipeline' at:
 1. https://github.com/4-DS/pipeline-step1.git
 2. https://github.com/4-DS/pipeline-step2.git
 3. https://github.com/4-DS/pipeline-step3.git
 4. https://github.com/4-DS/pipeline-step4.git
 
-Then you can see design of your ML pipeline by running
-visualize.ipynb
-
-Download it in the root folder, containing all your steps, set parameters and run
-
+Clone them into sinara-ext-tools folder and then simply run
+```visualize.ipynb```
 
 # Let's build production image with your model 
 
@@ -90,15 +104,3 @@ Then pick up the entity path for your model packed as a bentoservice entity
 Then run bash containerize.sh and set parameters 
 
 Now you get an image with your model ready for intergration with your environment
-
-# Let's create and vizualize ML pipeline
-
-Please, download the ready ML model example:
-
-1. https://github.com/4-DS/sinara-ext-tools.git
-
-Run ```bash create_pipeline.sh``` and create as many steps of your pipeline as you want. 
-Repositories in Github in your organization will be created.
-Then go to steps folders and define interfaces.
-Now you can see design of your ML pipeline by running
-```visualize.ipynb```
