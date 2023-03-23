@@ -90,3 +90,14 @@ Then pick up the entity path for your model packed as a bentoservice entity
 Then run bash containerize.sh and set parameters 
 
 Now you get an image with your model ready for intergration with your environment
+
+# Let's craete and vizualize ML pipeline
+
+Please, download the ready ML model example:
+
+1. https://github.com/4-DS/sinara-ext-tools.git
+
+Run bash create_pipeline.sh and create as many steps of your pipeline as you want. Repositories in Github in your organisation will be craeted.
+Then go to steps folders and define interfaces.
+Now you can see design of your ML pipeline by running
+visualize.ipynb
