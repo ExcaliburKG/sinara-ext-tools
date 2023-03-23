@@ -59,6 +59,15 @@ steps+=( $STEP_NAME )
 (( i=$i+1 ))
 done
 
+read -p "Please, enter your Git user name (default=jovyan): " git_username
+read -p "Please, enter your Git user email (default=jovyan@test.ru): " git_useremail
+
+GIT_USERNAME="${git_username:-jovyan}"
+GIT_USEREMAIL="${git_useremail:-jovyan@test.ru}"
+
+git config --global user.email "$GIT_USEREMAIL"
+git config --global user.name "$GIT_USERNAME"
+
 read -p "Your pipeline steps will be cloned soon. Would you like to store Git credentials for making it faster? y/n (default=n): " save_git_creds
 
 if [[ ${save_git_creds} == "y" ]]; then
@@ -74,5 +83,4 @@ for step in ${steps[@]}; do
   git push
 done
 
-echo 'Now you can go through the steps' folders and declare interfaces as you need'
-
+echo "Now you can go through the steps' folders and declare interfaces as you need"
