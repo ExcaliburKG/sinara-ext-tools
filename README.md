@@ -85,7 +85,7 @@ Please, download the ready ML model example:
 
 1. https://github.com/4-DS/pipeline-model_train.git
 
-Run python step.dev.py
+Run ```python step.dev.py```
 Then pick up the entity path for your model packed as a bentoservice entity
 Then run bash containerize.sh and set parameters 
 
@@ -97,7 +97,8 @@ Please, download the ready ML model example:
 
 1. https://github.com/4-DS/sinara-ext-tools.git
 
-Run bash create_pipeline.sh and create as many steps of your pipeline as you want. Repositories in Github in your organisation will be craeted.
+Run ```bash create_pipeline.sh``` and create as many steps of your pipeline as you want. 
+Repositories in Github in your organization will be created.
 Then go to steps folders and define interfaces.
 Now you can see design of your ML pipeline by running
-visualize.ipynb
+```visualize.ipynb```
