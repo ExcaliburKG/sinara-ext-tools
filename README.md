@@ -91,7 +91,7 @@ Then run bash containerize.sh and set parameters
 
 Now you get an image with your model ready for intergration with your environment
 
-# Let's craete and vizualize ML pipeline
+# Let's create and vizualize ML pipeline
 
 Please, download the ready ML model example:
 
