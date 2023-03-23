@@ -76,11 +76,12 @@ fi
 
 set -e
 for step in ${steps[@]}; do
-  git clone --recurse-submodules https://github.com/4-DS/step_template.git $step
-  cd $step
+  git clone --recurse-submodules https://github.com/4-DS/step_template.git $PIPELINE_NAME-$step
+  cd $PIPELINE_NAME-$step
   git remote set-url origin https://github.com/$GITHUB_ORG/$PIPELINE_NAME-$step.git
   git reset $(git commit-tree HEAD^{tree} -m "a new Sinara step")
   git push
 done
 
 echo "Now you can go through the steps' folders and declare interfaces as you need"
+
