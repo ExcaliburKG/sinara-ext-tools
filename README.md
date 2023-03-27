@@ -45,51 +45,50 @@ bash run.sh
 bash remove.sh
 ```
 
-# Let's create and vizualize ML pipeline
+# Pipeline quiсk conceptual intro
+Our framework allows you to create and visualize ML pipelines. They consist of steps. Another word, each element of the DAG is a step. At the exit and at the entrance of each step we have entities. An entity is a dataset that is saved in the file system folder as a parquet file. Each step (component) of the pipeline is implemented as a separate Git repository. Each step is created based on a template.
 
-We are going to create the followin ML pipeline:
+ML pipeline example ml dad looks at the picture below.
 
 ![the picture](examples/example.png)
 
-Clone this repo:
-1. https://github.com/4-DS/sinara-ext-tools.git
+Each step is implemented as a sequence of substeps (Jupyter notebooks). Each Jupyter notebook that implements the substep contains 2 special cells at the beginning: 
+1. a cell with parameters;
+2. a cell with an interface. 
 
-Here you can find a simple tools for all you demands.
+And the interface is a description of the inputs and outputs (entities).
 
-1. Run ```bash create_pipeline.sh```and create your pipeline structure in GitHub with as many steps as you want.
-Repositories for your pipeline steps will be created.
-Under the hood, each step is based on that template repository (see details at https://github.com/4-DS/step_template/blob/main/README.md).
+# Let's create and vizualize ML pipeline
 
-2. Go to steps folders and define interfaces.
+To implement the pipe in the picture above, please follow these steps:
 
-In each step you must define:
-- inputs
-- outputs
-- custom_inputs
-- custom_outputs
-- tmp_inputs
-- tmp_outputs
+1. Clone Sinara extenal tools repo:
+```
+git clone https://github.com/4-DS/sinara-ext-tools.git
+```
 
-Inputs are some previous steps outputs.
-Outputs are some results of a step.
-Inputs/outputs are formed base on a special run name which is 'run-%timestamp%'
-Custom inputs/outputs are some custom data with fixed path.
-Tmp inputs are cache data produced from previous steps.
-Tmp outputs are cache data produced from current steps.
+2.Automatically create your pipeline structure in GitHub with as many steps as you want.
+```
+bash create_pipeline.sh
+``` 
 
-3. Build design of your ML pipeline by running
-```visualize.ipynb```
+3. Go to steps folders and define interfaces.
 
-Also, you can try a ready example.
+4. Build design of your ML pipeline:
+```
+visualize.ipynb
+```
 
-See the ready steps step1-4 of pipeline with the name 'pipeline' at:
-1. https://github.com/4-DS/pipeline-step1.git
-2. https://github.com/4-DS/pipeline-step2.git
-3. https://github.com/4-DS/pipeline-step3.git
-4. https://github.com/4-DS/pipeline-step4.git
+Also, you can try a ready example:
 
-Clone them into sinara-ext-tools folder and then simply run
-```visualize.ipynb```
+1. Clone ready repos:
+
+- https://github.com/4-DS/pipeline-step1.git
+- https://github.com/4-DS/pipeline-step2.git
+- https://github.com/4-DS/pipeline-step3.git
+- https://github.com/4-DS/pipeline-step4.git
+
+2. Copy ```visualize.ipynb``` from sinara-ext-tools repository in the folder where the steps are situaded and Run the notebook cells.
 
 # Let's build production image with your model 
 
