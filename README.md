@@ -4,6 +4,7 @@ Prerequisites
 
 - Docker is up and running
 - Git installed
+- Unzip installed
 
 # Deploy an environment for a single use
 
