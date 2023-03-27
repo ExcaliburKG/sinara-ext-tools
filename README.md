@@ -100,7 +100,7 @@ At the output, we need to get a model packaged in a Docker container and being a
 
 1. Clone the ready model (a step of your pipeline):
 ```
-git clone https://github.com/4-DS/pipeline-model_train.git
+git clone --recursive https://github.com/4-DS/pipeline-model_train.git
 ```
 
 2. Create bentoservice entity from your model:
