@@ -14,16 +14,15 @@ containerName=jovyan-single-use
 
 instanceName="${instanceName:-$containerName}"
 
-echo "Note, that image tag for your Docker model image will be automatically taken from your step run-id"
+echo "Note, that image tag for your Docker model image is the step run-id"
+echo "Note, that image name for your Docker model image is the step output entity (bentoservice)"
 
 read -p "Please, enter ENTITY_PATH for your bentoservice: " bentoservicePath
 defaultImageTag=$(basename $(dirname "$bentoservicePath")) 
 
 read -p "Please, enter Docker registry address for your model image: " dockerRegistry
-read -p "Please, enter your model image name: " modelName
-read -p "Please, enter your model image tag [default=$defaultImageTag]: " modelImageTag
 
-modelImageTag="${modelImageTag:-$defaultImageTag}"
+modelImageTag="${defaultImageTag}"
 
 bentoservice_dir="$(basename $bentoservicePath)"
 
@@ -36,4 +35,7 @@ cd $bentoservice_dir
 unzip model.zip
 rm -f _SUCCESS
 rm -f model.zip
+source save_info.txt
+
+modelName=$(echo $BENTO_SERVICE | sed 's/\.[^.]*$//')
 docker build . -t $dockerRegistry/$modelName:$modelImageTag
