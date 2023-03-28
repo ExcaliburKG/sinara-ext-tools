@@ -79,7 +79,7 @@ bash create_pipeline.sh
 
 4. Define a step name for each repository:
 
-![image](https://user-images.githubusercontent.com/71835176/228266513-25043843-363c-4677-bb0b-e7fcf3451a64.png)
+![image](https://user-images.githubusercontent.com/71835176/228267574-3da41530-71c9-4349-86b2-483c4f081976.png)
 
 5. Build design of your ML pipeline:
 ```
@@ -101,7 +101,7 @@ git clone --recursive https://github.com/4-DS/pipeline-step4.git
 # Model serving intro
 
 Now we know how to implement an abstract ML pipeline, but we need more:
-At the output, we need to get a model packaged in a Docker container and being accessible via the REST interface. Sinara framework allows you to save a bentoservice as an output entity. In fact, bentoservice is a Python class wrapper for packaging a model with a REST interface. Additionally, Sinara framework provides a contenraize tool to create a Docker image based on a bentoservice. As a result, the name of the image is such that you can then understand from which bentoservice it was created.
+at the output, we need to get a model packaged in a Docker container and being accessible via the REST interface. Sinara framework allows you to save a bentoservice as an output entity. In fact, bentoservice is a Python class wrapper for packaging a model with a REST interface. Additionally, Sinara framework provides a contenraize tool to create a Docker image based on a bentoservice. As a result, the name of the image is such that you can then understand from which bentoservice it was created.
 
 # Model serving tutorial
 
