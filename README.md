@@ -49,7 +49,7 @@ bash remove.sh
 # Pipeline quiсk conceptual intro
 Our framework allows you to create and visualize ML pipelines. They consist of steps. Another word, each element of the DAG is a step. At the output and at the input of each step we have entities. An entity is a dataset that is saved in the file system folder as a parquet file. Each step (component) of the pipeline is implemented as a separate Git repository. Each step is created based on a template.
 
-ML pipeline example ml dad looks at the picture below.
+ML pipeline example is shown at the picture below:
 
 ![the picture](examples/example.png)
 
@@ -73,9 +73,15 @@ git clone https://github.com/4-DS/sinara-ext-tools.git
 bash create_pipeline.sh
 ``` 
 
-3. Go to steps folders and define interfaces.
+3. Go to steps folders and define interfaces:
 
-4. Build design of your ML pipeline:
+![image](https://user-images.githubusercontent.com/71835176/228266906-ac229f4b-6cf3-4415-86b1-a2a4c0a244e6.png)
+
+4. Define a step name for each repository:
+
+![image](https://user-images.githubusercontent.com/71835176/228266513-25043843-363c-4677-bb0b-e7fcf3451a64.png)
+
+5. Build design of your ML pipeline:
 ```
 visualize.ipynb
 ```
@@ -83,11 +89,12 @@ visualize.ipynb
 Also, you can try a ready example:
 
 1. Clone the ready repos:
-
-- https://github.com/4-DS/pipeline-step1.git
-- https://github.com/4-DS/pipeline-step2.git
-- https://github.com/4-DS/pipeline-step3.git
-- https://github.com/4-DS/pipeline-step4.git
+```
+git clone --recursive https://github.com/4-DS/pipeline-step1.git
+git clone --recursive https://github.com/4-DS/pipeline-step2.git
+git clone --recursive https://github.com/4-DS/pipeline-step3.git
+git clone --recursive https://github.com/4-DS/pipeline-step4.git
+```
 
 2. Copy ```visualize.ipynb``` from sinara-ext-tools repository in the folder where the steps are situaded and Run the notebook cells.
 
@@ -119,7 +126,7 @@ bash containerize.sh
 
 Now you can use your model in production. Docker image will be automatically versioned as:
 
-```<your_docker_registry>/<env>.<product>.<stand>.<ml_model>:<ml_model_run_id>```
+```<your_docker_registry>/<env>.<pipeline>.<zone>.<step>:<step_run_id>```
 
 # Full conceptual overview
 
