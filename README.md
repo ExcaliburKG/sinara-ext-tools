@@ -75,11 +75,11 @@ bash create_pipeline.sh
 
 3. Go to steps folders and define interfaces:
 
-![image](https://user-images.githubusercontent.com/71835176/228266906-ac229f4b-6cf3-4415-86b1-a2a4c0a244e6.png)
+![the picture](examples/define_interfaces.png)
 
 4. Define a step name for each repository:
 
-![image](https://user-images.githubusercontent.com/71835176/228267574-3da41530-71c9-4349-86b2-483c4f081976.png)
+![the picture](examples/define_step_name.png)
 
 5. Build design of your ML pipeline:
 ```
@@ -112,6 +112,7 @@ git clone --recursive https://github.com/4-DS/pipeline-model_train.git
 
 2. Create bentoservice entity from your model:
 ```
+cd pipeline-model_train
 python step.dev.py
 ```
 
