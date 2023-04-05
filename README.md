@@ -4,7 +4,7 @@ Prerequisites
 
 - Docker is up and running
 - Git installed
-- Unzip installed
+- Unzip installed (On Linux and MacOS)
 
 # Deploy an environment for a single use
 
@@ -13,13 +13,19 @@ git clone --recursive https://github.com/4-DS/sinara-ext-tools.git
 cd sinara-ext-tools
 ```
 
-## To make use of it, run:
+## To make use of the environment, run:
+Linux and MacOS:<br>
 ```
 bash create.sh
 bash run.sh
 ```
-
-### Go on http://127.0.0.1:8888/lab
+Windows (PowerShell):<br>
+```
+.\create.ps1
+.\run.ps1
+```
+### Open Jupyter Notebook Server at http://127.0.0.1:8888/lab in any browser
+Inside Jupyter server terminal run:<br>
 ```
 git clone --recursive https://github.com/4-DS/step_template.git
 cd step_template
@@ -27,25 +33,40 @@ cd step_template
 
 ### Run 'Init_Data.ipynb' to get sample data
 
-### Run 'step.dev.py' in Terminal 
+### Run 'step.dev.py' in Jupyter server terminal: 
 
-```python step.dev.py```
+```
+python step.dev.py
+```
 
-## To stop using it for a while, run:
+## To stop using the environment for a while, run:
+Inside sinara-ext-tools folder<br>
+Linux and MacOS:<br>
 ```
 bash stop.sh
 ```
-
-## To continue using it, run:
+Windows (PowerShell):<br>
+```
+.\stop.ps1
+```
+## To continue using the environment, run:
+Linux and MacOS:<br>
 ```
 bash run.sh
 ```
-
-## To remove it, run:
+Windows (PowerShell):<br>
+```
+.\run.ps1
+```
+## To remove the environment, run:
+Linux and MacOS:<br>
 ```
 bash remove.sh
 ```
-
+Windows (PowerShell):<br>
+```
+.\remove.ps1
+```
 # Pipeline quiсk conceptual intro
 Our framework allows you to create and visualize ML pipelines. They consist of steps. Another word, each element of the DAG is a step. At the output and at the input of each step we have entities. An entity is a dataset that is saved in the file system folder as a parquet file. Each step (component) of the pipeline is implemented as a separate Git repository. Each step is created based on a template.
 
