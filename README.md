@@ -150,7 +150,7 @@ bash containerize.sh
 ```
 Windows (Powershell):
 ```
-.\containterize.ps1
+.\containerize.ps1
 ```
 
 Now you can use your model in production. Docker image will be automatically versioned as:
