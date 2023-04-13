@@ -84,28 +84,26 @@ And the interface is a description of the inputs and outputs (entities).
 
 To implement the pipeline in the picture above, please follow these steps:
 
-1. Clone Sinara extenal tools repo:
+1. Open Jupyter Notebook Server at http://127.0.0.1:8888/lab in any browser<br>
+2. Clone Sinara internal tools repo:
 ```
-git clone https://github.com/4-DS/sinara-ext-tools.git
+git clone https://github.com/4-DS/sinara-int-tools.git
 ```
-
-2.Automatically create your pipeline structure in GitHub with as many steps as you want.
+3. Automatically create your pipeline structure in GitHub with as many steps as you want.
 ```
 bash create_pipeline.sh
 ``` 
-
-3. Go to steps folders and define interfaces:
+4. Go to steps folders and define interfaces:
 
 ![the picture](examples/define_interfaces.png)
 
-4. Define a step name for each repository:
+5. Define a step name for each repository:
 
 ![the picture](examples/define_step_name.png)
 
-5. Build design of your ML pipeline:
-```
-visualize.ipynb
-```
+6. Build design of your ML pipeline:<br>
+Open ```visualize.ipynb``` notebook and replace an example step folder glob inside visualize() function call to your actual steps folder glob<br>
+Run ```visualize.ipynb``` notebook
 
 Also, you can try a ready example:
 
@@ -117,7 +115,9 @@ git clone --recursive https://github.com/4-DS/pipeline-step3.git
 git clone --recursive https://github.com/4-DS/pipeline-step4.git
 ```
 
-2. Copy ```visualize.ipynb``` from sinara-ext-tools repository in the folder where the steps are situaded and Run the notebook cells.
+2. Open ```visualize.ipynb``` from sinara-int-tools repository
+3. Change glob path in visualize() to the folder where steps are cloned
+4. Run the notebook cells
 
 # Model serving intro
 
@@ -125,7 +125,8 @@ Now we know how to implement an abstract ML pipeline, but we need more:
 at the output, we need to get a model packaged in a Docker container and being accessible via the REST interface. Sinara framework allows you to save a bentoservice as an output entity. In fact, bentoservice is a Python class wrapper for packaging a model with a REST interface. Additionally, Sinara framework provides a contenraize tool to create a Docker image based on a bentoservice. As a result, the name of the image is such that you can then understand from which bentoservice it was created.
 
 # Model serving tutorial
-
+### Open Jupyter Notebook Server at http://127.0.0.1:8888/lab in any browser
+Inside Jupyter server terminal run:<br>
 1. Clone the ready model (a step of your pipeline):
 ```
 git clone --recursive https://github.com/4-DS/pipeline-model_train.git
@@ -141,9 +142,15 @@ python step.dev.py
 
 ![the picture](examples/get_bentoservice_path.png)
 
-4. Run a containerize tool for getting Docker image of your model. Set run parameters at prompt:
+4. Run a containerize tool from sinara-ext-tools (cloned earler on the host) for getting Docker image of your model. Set run parameters at prompt:<br>
+  
+Linux and MacOS:<br>
 ```
 bash containerize.sh
+```
+Windows (Powershell):
+```
+.\containterize.ps1
 ```
 
 Now you can use your model in production. Docker image will be automatically versioned as:
