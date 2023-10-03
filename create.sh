@@ -70,6 +70,8 @@ if [[ ${runMode} == "q" ]]; then
         --memory-reservation=$memRequest \
         --memory=$memLimit \
         --cpus=$cpuLimit \
+        -e JUPYTER_ALLOW_INSECURE_WRITES='true' \
+        -e JUPYTER_RUNTIME_DIR='/tmp' \
         -w /home/jovyan/work \
         buslovaev/sinara-notebook \
         start-notebook.sh \
@@ -126,6 +128,8 @@ else
         --memory-reservation=$memRequest \
         --memory=$memLimit \
         --cpus=$cpuLimit \
+        -e JUPYTER_ALLOW_INSECURE_WRITES='true' \
+        -e JUPYTER_RUNTIME_DIR='/tmp' \
         -w /home/jovyan/work \
         buslovaev/sinara-notebook \
         start-notebook.sh \
