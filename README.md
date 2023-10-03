@@ -6,6 +6,14 @@ Prerequisites
 - Git installed
 - Unzip installed (On Linux and MacOS)
 
+# Prepare docker with WSL integration on a Windows machine
+1. Download and install latest docker desktop from https://www.docker.com/products/docker-desktop
+1. Setup WSL using guide at https://learn.microsoft.com/en-us/windows/wsl/install-manual
+1. If you are using PowerShell scripts, make sure Execution Policy is set to RemoteSigned using PowerShell console in Administrator mode:
+```
+ Set-ExecutionPolicy RemoteSigned
+```
+
 # Deploy an environment for a single use
 
 ```
