@@ -75,7 +75,7 @@ Windows (PowerShell):<br>
 ```
 .\remove.ps1
 ```
-# Notes on creating and removing Sinara ML
+## Notes on creating and removing Sinara ML
 These commands creates docker volumes for data, code and temporary data. For day to day usage we recommend using folder mapping on local disk.
 
 # Pipeline quiсk conceptual intro
