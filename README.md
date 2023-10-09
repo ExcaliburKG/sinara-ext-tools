@@ -1,4 +1,4 @@
-# Getting startes with Sinara ML
+# Getting started with Sinara ML
 
 # Prerequisites
 
