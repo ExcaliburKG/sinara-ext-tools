@@ -1,6 +1,6 @@
 # Getting started with Sinara ML
 
-# Prerequisites
+## Prerequisites
 
 - Docker is up and running
 - Git installed
@@ -14,14 +14,14 @@
  Set-ExecutionPolicy RemoteSigned
 ```
 
-# Setup Sinara ML on your desktop
+## Setup Sinara ML on your desktop
 
 ```
 git clone --recursive https://github.com/4-DS/sinara-ext-tools.git
 cd sinara-ext-tools
 ```
 
-## To make use of the environment, run:
+### To make use of the environment, run:
 Linux and MacOS:<br>
 ```
 bash create.sh
