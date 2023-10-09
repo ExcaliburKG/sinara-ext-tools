@@ -21,7 +21,7 @@ git clone --recursive https://github.com/4-DS/sinara-ext-tools.git
 cd sinara-ext-tools
 ```
 
-To run Sinara ML make the following:
+To run Sinara ML make the following:<br>
 Linux and MacOS:<br>
 ```
 bash create.sh
@@ -32,7 +32,7 @@ Windows (PowerShell):<br>
 .\create.ps1
 .\run.ps1
 ```
-Open Jupyter Notebook Server at http://127.0.0.1:8888/lab in any browser.
+Open Jupyter Notebook Server at http://127.0.0.1:8888/lab in any browser.<br>
 Inside Jupyter server terminal run:<br>
 ```
 git clone --recursive https://github.com/4-DS/step_template.git
