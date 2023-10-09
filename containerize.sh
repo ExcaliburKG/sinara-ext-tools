@@ -38,4 +38,10 @@ rm -f model.zip
 source save_info.txt
 
 modelName=$(echo $BENTO_SERVICE | sed 's/\.[^.]*$//')
-docker build . -t $dockerRegistry/$modelName:$modelImageTag
+dockerImage="${dockerRegistry}/${modelName}:${modelImageTag}"
+
+cp ../save_extra_info.py .
+
+docker run -it --rm $PWD:/$bentoservice_dir buslovaev/sinara-notebook python3 save_extra_info.py --bentoservice_dir=/$bentoservice_dir --image_tag=$dockerImage
+rm -f save_extra_info.py
+docker build . -t $dockerImage
