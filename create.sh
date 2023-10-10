@@ -49,7 +49,6 @@ echo "And then use that parameter in all other tools to control your instance."
 
 echo "If you want to change the run mode, you need to issue 'remove.sh' in advance."
 
-gpuEnabled="n"
 gpu=''
 sinara_image="buslovaev/sinara-notebook"
 
