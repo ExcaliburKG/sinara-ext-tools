@@ -146,7 +146,7 @@ To run the step do:<br>
 
 1. Clone git repository:
 ```
-git clone --recursive https://github.com/4-DS/house_price-model_train.git
+git clone --recursive https://github.com/4-DS/house_price-model_test.git
 cd house_price-model_train
 ```
 2. Run step:
