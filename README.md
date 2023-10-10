@@ -47,7 +47,7 @@ Execute 'step.dev.py' in Jupyter server terminal:
 python step.dev.py
 ```
 
-To stop Sinara ML instance execute in sinara-ext-tools folder:<br>
+To stop Sinara server execute in sinara-ext-tools folder:<br>
 Linux and MacOS:<br>
 ```
 bash stop.sh
@@ -65,7 +65,7 @@ Windows (PowerShell):<br>
 ```
 .\run.ps1
 ```
-To remove the Sinara ML instance execute in sinara-ext-tools folder:<br>
+To remove the Sinara server execute in sinara-ext-tools folder:<br>
 Linux and MacOS:<br>
 ```
 bash remove.sh
