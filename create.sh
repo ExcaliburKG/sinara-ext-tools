@@ -53,7 +53,7 @@ gpu=''
 sinara_image="buslovaev/sinara-notebook"
 
 if [[ -z "${gpuEnabled:-}" ]]; then
-    read -p "Please, choose a Sinara for ML(y) or CV(n) projects (default=y): " gpuEnabled
+    read -p "Please, choose a Sinara for ML(y) or CV(n) projects: " gpuEnabled
 fi
 
 [[ ${gpuEnabled} == "y" ]] && gpu="--gpus=all";sinara_image="buslovaev/sinara-cv" 
