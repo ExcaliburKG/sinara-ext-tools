@@ -42,6 +42,6 @@ dockerImage="${dockerRegistry}/${modelName}:${modelImageTag}"
 
 cp ../save_extra_info.py .
 
-docker run -it --rm $PWD:/$bentoservice_dir buslovaev/sinara-notebook python3 save_extra_info.py --bentoservice_dir=/$bentoservice_dir --image_tag=$dockerImage
+docker run -it --rm -v "$(pwd)":/tmp/$bentoservice_dir -w /tmp/$bentoservice_dir buslovaev/sinara-notebook python3 save_extra_info.py --bentoservice_dir=/$bentoservice_dir --image_tag=$dockerImage
 rm -f save_extra_info.py
 docker build . -t $dockerImage
