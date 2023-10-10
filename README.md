@@ -168,19 +168,47 @@ Now you can use your model in production. Docker image will be automatically ver
 
 ```<your_docker_registry>/<env>.<pipeline>.<zone>.<step>:<step_run_id>```
 
-## Binary model serving tutorial
+# Binary model serving tutorial
 
 To deliver models to production we can use so called Binary model serving. 
-It's a very simple method where a model and its artifacts will pack to Docker image as is.
+It's a very simple method where a model and its artifacts will pack to Docker image as is. 
+This method is handy for **CV models** where there is no REST API.
 Model is versioning as it said above like ```<your_docker_registry>/<env>.<pipeline>.<zone>.<step>:<step_run_id>```
 
 To confirm authenticity, in each production model image there is a checksum folder that contains:
 
-- artifacts_list.txt - list of model artifacts
-- *.*.md5 - hash sums for each artifact
-- docker_image_info.txt - name of the image from which the artifacts were extracted
+- **artifacts_list.txt** - list of model artifacts
+- **.md5** - hash sums for each artifact
+- **docker_image_info.txt** - name of the image from which the artifacts were extracted
 
-Example of code to extract artifacts
+### Open Jupyter Notebook Server at http://127.0.0.1:8888/lab in any browser
+Inside Jupyter server terminal run:<br>
+1. Clone the ready model (a step of your pipeline):
+```
+git clone --recursive https://github.com/4-DS/pipeline-binary_serving.git
+```
+
+2. Create bentoservice entity from your model:
+```
+cd pipeline-model_train
+python step.dev.py
+```
+
+3. Pick up the entity path for your model packed as a bentoservice entity:
+
+![the picture](examples/get_bentoservice_path.png)
+
+4. Run a containerize tool from sinara-ext-tools (cloned earler on the host) for getting Docker image of your model. Set run parameters at prompt:<br>
+  
+Linux and MacOS:<br>
+```
+bash containerize.sh
+```
+Windows (Powershell):
+```
+.\containerize.ps1
+```
+### Example of code to extract artifacts
 ```
 ML_MODEL_DOCKER_IMAGE=```<your_docker_registry>/<env>.<pipeline>.<zone>.<step>:<step_run_id>```
 ML_MODEL_CONTAINER_NAME=model-container
