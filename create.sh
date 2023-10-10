@@ -49,6 +49,12 @@ echo "And then use that parameter in all other tools to control your instance."
 
 echo "If you want to change the run mode, you need to issue 'remove.sh' in advance."
 
+gpuEnabled="n"
+
+if [[ -z "${gpuEnabled:-}" ]]; then
+    read -p "Please, choose a Sinara for ML(y) or CV(n) projects (default=y): " gpuEnabled
+fi
+
 if [[ ${runMode} == "q" ]]; then
   dataVolume="jovyan-data-${instanceName}"
   workVolume="jovyan-work-${instanceName}"
@@ -66,6 +72,7 @@ if [[ ${runMode} == "q" ]]; then
       echo "Your jovyan single use container is already running"
     else
       docker create -p 8888:8888 -p 4040-4060:4040-4060 -v $workVolume:/home/jovyan/work -v $dataVolume:/data -v $tmpVolume:/tmp -e DSML_USER=jovyan \
+        [[ ${gpuEnabled} == "y" ]] && --gpus=all \ || \
         --name "$instanceName" \
         --memory-reservation=$memRequest \
         --memory=$memLimit \
@@ -73,7 +80,7 @@ if [[ ${runMode} == "q" ]]; then
         -e JUPYTER_ALLOW_INSECURE_WRITES='true' \
         -e JUPYTER_RUNTIME_DIR='/tmp' \
         -w /home/jovyan/work \
-        buslovaev/sinara-notebook \
+        [[ ${gpuEnabled} == "y" ]] && buslovaev/sinara-cv || buslovaev/sinara-notebook \
         start-notebook.sh \
         --ip=0.0.0.0 \
         --port=8888 \
@@ -124,6 +131,7 @@ else
       echo "Your jovyan single use container is already running"
     else
       docker create -p 8888:8888 -p 4040-4060:4040-4060 -v $jovyanWorkPath:/home/jovyan/work -v $jovyanDataPath:/data -v $jovyanTmpPath:/tmp -e DSML_USER=jovyan \
+        [[ ${gpuEnabled} == "y" ]] && --gpus=all \ || \
         --name "$instanceName" \
         --memory-reservation=$memRequest \
         --memory=$memLimit \
@@ -131,7 +139,7 @@ else
         -e JUPYTER_ALLOW_INSECURE_WRITES='true' \
         -e JUPYTER_RUNTIME_DIR='/tmp' \
         -w /home/jovyan/work \
-        buslovaev/sinara-notebook \
+        [[ ${gpuEnabled} == "y" ]] && buslovaev/sinara-cv || buslovaev/sinara-notebook \
         start-notebook.sh \
         --ip=0.0.0.0 \
         --port=8888 \
