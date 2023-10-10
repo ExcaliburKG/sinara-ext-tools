@@ -92,7 +92,7 @@ This step downloads a csv-dataset from the internet and converts it to partition
 To run the step do:
 1. Clone git repository:
 ```
-git clone https://github.com/4-DS/house_price-data_load.git
+git clone --recursive https://github.com/4-DS/house_price-data_load.git
 cd house_price-data_load
 ```
 2. Run step:
@@ -104,7 +104,7 @@ This step splits the dataset into train, test and evaluation sets using partitio
 To run the step do:
 1. Clone git repository:
 ```
-git clone https://github.com/4-DS/house_price-data_prep.git
+git clone --recursive https://github.com/4-DS/house_price-data_prep.git
 cd house_price-data_prep
 ```
 2. Run step:
@@ -120,7 +120,7 @@ To run the step do:<br>
 
 1. Clone git repository:
 ```
-git clone https://github.com/4-DS/house_price-model_train.git
+git clone --recursive https://github.com/4-DS/house_price-model_train.git
 cd house_price-model_train
 ```
 2. Run step:
@@ -133,7 +133,7 @@ To run the step do:<br>
 
 1. Clone git repository:
 ```
-git clone https://github.com/4-DS/house_price-model_eval.git
+git clone --recursive https://github.com/4-DS/house_price-model_eval.git
 cd house_price-model_eval
 ```
 2. Run step:
@@ -146,7 +146,7 @@ To run the step do:<br>
 
 1. Clone git repository:
 ```
-git clone https://github.com/4-DS/house_price-model_train.git
+git clone --recursive https://github.com/4-DS/house_price-model_train.git
 cd house_price-model_train
 ```
 2. Run step:
@@ -158,7 +158,7 @@ python step.dev.py
 After running all 5 steps we are ready to build a docker image with REST API. To build do the following:
 1. Clone or cd into sinara-ext-tools repository on the host system where docker is installed
 ```
-git clone https://github.com/4-DS/sinara-ext-tools.git
+git clone --recursive https://github.com/4-DS/sinara-ext-tools.git
 cd sinara-ext-tools
 ```
 2. Create docker image for model service - execute in sinara-ext-tools folder:
