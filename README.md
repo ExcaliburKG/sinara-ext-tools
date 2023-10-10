@@ -168,6 +168,27 @@ Now you can use your model in production. Docker image will be automatically ver
 
 ```<your_docker_registry>/<env>.<pipeline>.<zone>.<step>:<step_run_id>```
 
+## Binary model serving tutorial
+
+To deliver models to production we can use so called Binary model serving. 
+It's a very simple method where a model and its artifacts will pack to Docker image as is.
+Model is versioning as it said above like ```<your_docker_registry>/<env>.<pipeline>.<zone>.<step>:<step_run_id>```
+
+To confirm authenticity, in each production model image there is a checksum folder that contains:
+
+- artifacts_list.txt - list of model artifacts
+- *.*.md5 - hash sums for each artifact
+- docker_image_info.txt - name of the image from which the artifacts were extracted
+
+Example of code to extract artifacts
+```
+ML_MODEL_DOCKER_IMAGE=```<your_docker_registry>/<env>.<pipeline>.<zone>.<step>:<step_run_id>```
+ML_MODEL_CONTAINER_NAME=model-container
+[ "$(docker ps -a | grep $ML_MODEL_CONTAINER_NAME)" ] && docker rm -f $ML_MODEL_CONTAINER_NAME
+ML_MODEL_ARTIFACTS=$(docker run -it --rm $ML_MODEL_DOCKER_IMAGE bash -c 'cd $BUNDLE_PATH && find "$(pwd -P)" -maxdepth 2 -type d -name artifacts | xargs echo -n')
+docker create --name $ML_MODEL_CONTAINER_NAME $ML_MODEL_DOCKER_IMAGE && docker cp $ML_MODEL_CONTAINER_NAME:$ML_MODEL_ARTIFACTS .
+```
+
 # Full conceptual overview
 
 To be continued..
