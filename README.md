@@ -1,10 +1,10 @@
 # Getting started with Sinara ML
 
 ## Prerequisites
-
-- Docker is up and running
+Sinara ML components can be run on Linux, MacOS and Windows WSL (same as Linux). Following programms should be installed
+- Docker is up and running (or Docker Desktop)
 - Git installed
-- Unzip installed (On Linux and MacOS)
+- Unzip installed (on Linux and MacOS)
 
 ### On Windows also prepare docker with WSL integration on (skip this step if you running on MacOS or Linux)
 1. Download and install latest docker desktop from https://www.docker.com/products/docker-desktop
