@@ -72,7 +72,7 @@ if [[ ${runMode} == "q" ]]; then
       echo "Your jovyan single use container is already running"
     else
       docker create -p 8888:8888 -p 4040-4060:4040-4060 -v $workVolume:/home/jovyan/work -v $dataVolume:/data -v $tmpVolume:/tmp -e DSML_USER=jovyan \
-        [[ ${gpuEnabled} == "y" ]] && --gpus=all \ || \
+        [[ ${gpuEnabled} == "y" ]] && echo "--gpus=all" || echo '' \
         --name "$instanceName" \
         --memory-reservation=$memRequest \
         --memory=$memLimit \
@@ -80,7 +80,7 @@ if [[ ${runMode} == "q" ]]; then
         -e JUPYTER_ALLOW_INSECURE_WRITES='true' \
         -e JUPYTER_RUNTIME_DIR='/tmp' \
         -w /home/jovyan/work \
-        [[ ${gpuEnabled} == "y" ]] && buslovaev/sinara-cv || buslovaev/sinara-notebook \
+        [[ ${gpuEnabled} == "y" ]] && echo "buslovaev/sinara-cv" || echo "buslovaev/sinara-notebook" \
         start-notebook.sh \
         --ip=0.0.0.0 \
         --port=8888 \
