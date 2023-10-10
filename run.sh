@@ -33,14 +33,12 @@ fi
 if [[ ! $(docker ps | grep "$instanceName") ]]; then
       echo "Your jovyan single use container is not found. Please, create it with 'create.sh' "
 else
-    # clean tmp if exists
-	docker exec -u 0:0 $instanceName bash -c 'rm -rf /tmp/*'
-
-    # fix permissions
-    docker exec -u 0:0 $instanceName chmod 600 /tmp
+   # fix permissions
 	docker exec -u 0:0 $instanceName chown -R jovyan /tmp
 	docker exec -u 0:0 $instanceName chown -R jovyan /data
 
+    # clean tmp if exists
+	docker exec -u 0:0 $instanceName bash -c 'rm -rf /tmp/*'
 
 
     echo "Please, follow the URL http://127.0.0.1:8888/lab to access your jovyan single use, by using CTRL key"
