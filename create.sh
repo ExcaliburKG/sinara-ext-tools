@@ -50,10 +50,14 @@ echo "And then use that parameter in all other tools to control your instance."
 echo "If you want to change the run mode, you need to issue 'remove.sh' in advance."
 
 gpuEnabled="n"
+gpu=''
+sinara_image="buslovaev/sinara-notebook"
 
 if [[ -z "${gpuEnabled:-}" ]]; then
     read -p "Please, choose a Sinara for ML(y) or CV(n) projects (default=y): " gpuEnabled
 fi
+
+[[ ${gpuEnabled} == "y" ]] && gpu="--gpus=all";sinara_image="buslovaev/sinara-cv" 
 
 if [[ ${runMode} == "q" ]]; then
   dataVolume="jovyan-data-${instanceName}"
@@ -72,7 +76,7 @@ if [[ ${runMode} == "q" ]]; then
       echo "Your jovyan single use container is already running"
     else
       docker create -p 8888:8888 -p 4040-4060:4040-4060 -v $workVolume:/home/jovyan/work -v $dataVolume:/data -v $tmpVolume:/tmp -e DSML_USER=jovyan \
-        [[ ${gpuEnabled} == "y" ]] && echo "--gpus=all" || echo '' \
+        $gpu \
         --name "$instanceName" \
         --memory-reservation=$memRequest \
         --memory=$memLimit \
@@ -80,7 +84,7 @@ if [[ ${runMode} == "q" ]]; then
         -e JUPYTER_ALLOW_INSECURE_WRITES='true' \
         -e JUPYTER_RUNTIME_DIR='/tmp' \
         -w /home/jovyan/work \
-        [[ ${gpuEnabled} == "y" ]] && echo "buslovaev/sinara-cv" || echo "buslovaev/sinara-notebook" \
+        $sinara_image \
         start-notebook.sh \
         --ip=0.0.0.0 \
         --port=8888 \
@@ -131,7 +135,7 @@ else
       echo "Your jovyan single use container is already running"
     else
       docker create -p 8888:8888 -p 4040-4060:4040-4060 -v $jovyanWorkPath:/home/jovyan/work -v $jovyanDataPath:/data -v $jovyanTmpPath:/tmp -e DSML_USER=jovyan \
-        [[ ${gpuEnabled} == "y" ]] && --gpus=all \ || \
+        $gpu \
         --name "$instanceName" \
         --memory-reservation=$memRequest \
         --memory=$memLimit \
@@ -139,7 +143,7 @@ else
         -e JUPYTER_ALLOW_INSECURE_WRITES='true' \
         -e JUPYTER_RUNTIME_DIR='/tmp' \
         -w /home/jovyan/work \
-        [[ ${gpuEnabled} == "y" ]] && buslovaev/sinara-cv || buslovaev/sinara-notebook \
+        $sinara_image \
         start-notebook.sh \
         --ip=0.0.0.0 \
         --port=8888 \
