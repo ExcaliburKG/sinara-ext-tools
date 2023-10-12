@@ -37,7 +37,6 @@ else
 	docker exec -u 0:0 $instanceName bash -c 'rm -rf /tmp/*'
 
     # fix permissions
-    docker exec -u 0:0 $instanceName chmod 600 /tmp
 	docker exec -u 0:0 $instanceName chown -R jovyan /tmp
 	docker exec -u 0:0 $instanceName chown -R jovyan /data
 
