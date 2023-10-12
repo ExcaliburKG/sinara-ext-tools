@@ -4,7 +4,8 @@
 Sinara ML components can be run on Linux. Following software should be installed:
 - Git
 - Unzip
-- Proprietary Nvidia GPU driver and nvidia container toolkit (noveau driver doesn't support CUDA)
+- Proprietary Nvidia GPU driver (noveau driver doesn't support CUDA)
+- Nvidia container toolkit
 - Docker
 
 ## Setup prerequisites
@@ -16,14 +17,13 @@ Ubuntu and Debian:
 ```
 sudo apt-get install unzip
 ```
-Centos / Fedora / RHEL:
-```
-sudo dnf install unzip
-```
 
 ### Setup nvidia drivers
 1. Use nvidia official installation manual for your linux distribution at https://docs.nvidia.com/datacenter/tesla/tesla-installation-notes/index.html#abstract<br>
     <span style="color: red;">**Only driver version 515 and above is suitable for running sinara ML with NVIDIA CUDA support**</span>
+
+### Setup Nvidia container toolkit
+1. Use nvidia official installation manual for your linux distribution at https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html#installing-the-nvidia-container-toolkit
 
 ### Setup Docker on Linux
 1. Download and install docker using package manager of your linux distribution
