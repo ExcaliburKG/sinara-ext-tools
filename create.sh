@@ -27,6 +27,7 @@ containerName=jovyan-single-use
 instanceName="${instanceName:-$containerName}"
 
 runMode="${runMode:-q}"
+createFolders="${createFolders:-y}"
 
 memRequest="${memRequest:-4g}"
 memLimit="${memLimit:-8g}"
@@ -94,55 +95,66 @@ if [[ ${runMode} == "q" ]]; then
 
 else
    if [[ ${runMode} == "b" ]]; then
-   if [[ -z "${jovyanDataPath:-}" ]]; then
-    read -p "Please, choose a jovyan Data path: " jovyanDataPath
-   fi   
+      if [[ ${createFolders} == "y" ]]; then
+        if [[ -z "${jovyanRootPath:-}" ]]; then
+          read -p "Please, choose jovyan Root folder path (data, work and tmp will be created there): " jovyanRootPath
+        fi   
+        jovyanDataPath="${jovyanRootPath}/data"
+        jovyanWorkPath="${jovyanRootPath}/work"
+        jovyanTmpPath="${jovyanRootPath}/tmp"
+        echo "Creating folders"
+        mkdir -p "$jovyanDataPath"
+        mkdir -p "$jovyanWorkPath"
+        mkdir -p "$jovyanTmpPath"
+      else
+          if [[ -z "${jovyanDataPath:-}" ]]; then
+            read -p "Please, choose jovyan Data path: " jovyanDataPath
+          fi   
 
-   if [[ -z "${jovyanWorkPath:-}" ]]; then
-    read -p "Please, choose a jovyan Work path: " jovyanWorkPath
-   fi
+          if [[ -z "${jovyanWorkPath:-}" ]]; then
+            read -p "Please, choose jovyan Work path: " jovyanWorkPath
+          fi
 
-   if [[ -z "${jovyanTmpPath:-}" ]]; then
-    read -p "Please, choose a jovyan Tmp path: " jovyanTmpPath
-   fi
+          if [[ -z "${jovyanTmpPath:-}" ]]; then
+            read -p "Please, choose jovyan Tmp path: " jovyanTmpPath
+          fi
+      fi
 
+      read -p "Please, ensure that the folders exist (y/n): " foldersExist 
   
-  read -p "Please, ensure that the folders exist: y/n" foldersExist 
-  
-  if [[ ${foldersExist} == "y" ]]; then 
-     echo "Trying to run your environment"
-  else
-     echo "Sorry, you should prepare the folders beforehand"
-     exit 1
-  fi
+      if [[ ${foldersExist} == "y" ]]; then 
+        echo "Trying to run your environment"
+      else
+        echo "Sorry, you should prepare the folders beforehand"
+        exit 1
+      fi
  
-  if [[ $(docker ps -a --filter "status=exited" | grep "$instanceName") ]]; then
+      if [[ $(docker ps -a --filter "status=exited" | grep "$instanceName") ]]; then
+        echo "Your jovyan single use container is found"; docker start $instanceName
+      else
+          if [[ $(docker ps | grep "$instanceName") ]]; then
+            echo "Your jovyan single use container is already running"
+          else
+            docker create -p 8888:8888 -p 4040-4060:4040-4060 -v $jovyanWorkPath:/home/jovyan/work -v $jovyanDataPath:/data -v $jovyanTmpPath:/tmp -e DSML_USER=jovyan \
+              --name "$instanceName" \
+              --memory-reservation=$memRequest \
+              --memory=$memLimit \
+              --cpus=$cpuLimit \
+              -e JUPYTER_ALLOW_INSECURE_WRITES='true' \
+              -e JUPYTER_RUNTIME_DIR='/tmp' \
+              -w /home/jovyan/work \
+              buslovaev/sinara-notebook \
+              start-notebook.sh \
+              --ip=0.0.0.0 \
+              --port=8888 \
+              --NotebookApp.default_url=/lab \
+              --NotebookApp.token='' \
+              --NotebookApp.password='' 
 
-    echo "Your jovyan single use container is found"; docker start $instanceName
-  else
-    if [[ $(docker ps | grep "$instanceName") ]]; then
-      echo "Your jovyan single use container is already running"
-    else
-      docker create -p 8888:8888 -p 4040-4060:4040-4060 -v $jovyanWorkPath:/home/jovyan/work -v $jovyanDataPath:/data -v $jovyanTmpPath:/tmp -e DSML_USER=jovyan \
-        --name "$instanceName" \
-        --memory-reservation=$memRequest \
-        --memory=$memLimit \
-        --cpus=$cpuLimit \
-        -e JUPYTER_ALLOW_INSECURE_WRITES='true' \
-        -e JUPYTER_RUNTIME_DIR='/tmp' \
-        -w /home/jovyan/work \
-        buslovaev/sinara-notebook \
-        start-notebook.sh \
-        --ip=0.0.0.0 \
-        --port=8888 \
-        --NotebookApp.default_url=/lab \
-        --NotebookApp.token='' \
-        --NotebookApp.password='' 
-
-      echo "Your jovyan single use container is created";
-    fi
-  fi
-  fi
+            echo "Your jovyan single use container is created";
+          fi
+      fi
+   fi
 fi
 
 # End

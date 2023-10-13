@@ -6,7 +6,9 @@ param (
     [string]$cpuLimit = "4",
     [string]$jovyanDataPath = "",
     [string]$jovyanWorkPath = "",  
-    [string]$jovyanTmpPath = ""
+    [string]$jovyanTmpPath = "",
+    [string]$jovyanRootPath = "",
+    [string]$createFolders = "y"
  )
 
 Set-StrictMode -Version Latest
@@ -86,52 +88,66 @@ if ( $runMode -eq "q" ) {
 }
 else {
     if($runMode -eq "b") {
-       if ( !$jovyanDataPath ) {
-          $jovyanDataPath = Read-Host -Prompt "Please, choose a jovyan Data path: "
-       }   
-    
-       if ( !$jovyanWorkPath ) {
-          $jovyanWorkPath = Read-Host -Prompt "Please, choose a jovyan Work path: "
-       }
-    
-       if ( !$jovyanTmpPath ) {
-          $jovyanTmpPath = Read-Host -Prompt "Please, choose a jovyan Tmp path: "
-       }
-    }
-
-    $foldersExist = Read-Host -Prompt "Please, ensure that the folders exist: y/n"
-    if ($foldersExist -eq "y") {
-        Write-Host "Trying to run your environment"
-    }
-    else {
-        Write-Host "Sorry, you should prepare the folders beforehand"
-        exit 1
-    }
-
-    if (docker ps -a --filter "status=exited" | Out-String -stream | Select-String -Pattern $instanceName -SimpleMatch) {
-       Write-Host "Your jovyan single use container is found"
-       docker start $instanceName
-    }
-    else {
-        if (docker ps |  Out-String -stream | Select-String -Pattern $instanceName -SimpleMatch) {
-            Write-Host "Your jovyan single use container is already running"
+        if($createFolders -eq "y"){
+            if ( !$jovyanRootPath ) {
+                $jovyanRootPath = Read-Host -Prompt "Please, choose jovyan Root folder path (data, work and tmp will be created there): "
+            }  
+            $jovyanDataPath="${jovyanRootPath}\data"
+            $jovyanWorkPath="${jovyanRootPath}\work"
+            $jovyanTmpPath="${jovyanRootPath}\tmp"
+            Write-Host "Creating folders"
+            mkdir -p "$jovyanDataPath"
+            mkdir -p "$jovyanWorkPath"
+            mkdir -p "$jovyanTmpPath"
         }
         else {
-            docker create -p 8888:8888 -p 4040-4060:4040-4060 -v ${jovyanWorkPath}:/home/jovyan/work -v ${jovyanDataPath}:/data -v ${jovyanTmpPath}:/tmp -e DSML_USER=jovyan `
-            --name "$instanceName" `
-            --memory-reservation=$memRequest `
-            --memory=$memLimit `
-            --cpus=$cpuLimit `
-            -w /home/jovyan/work `
-            buslovaev/sinara-notebook `
-            start-notebook.sh `
-            --ip=0.0.0.0 `
-            --port=8888 `
-            --NotebookApp.default_url=/lab `
-            --NotebookApp.token='' `
-            --NotebookApp.password=''
-            
-            Write-Host "Your jovyan single use container is created"
+            if ( !$jovyanDataPath ) {
+                $jovyanDataPath = Read-Host -Prompt "Please, choose a jovyan Data path: "
+            }   
+    
+            if ( !$jovyanWorkPath ) {
+                $jovyanWorkPath = Read-Host -Prompt "Please, choose a jovyan Work path: "
+            }
+    
+            if ( !$jovyanTmpPath ) {
+                $jovyanTmpPath = Read-Host -Prompt "Please, choose a jovyan Tmp path: "
+            }
+        }
+
+        $foldersExist = Read-Host -Prompt "Please, ensure that the folders exist (y/n): "
+        if ($foldersExist -eq "y") {
+            Write-Host "Trying to run your environment"
+        }
+        else {
+            Write-Host "Sorry, you should prepare the folders beforehand"
+            exit 1
+        }
+
+        if (docker ps -a --filter "status=exited" | Out-String -stream | Select-String -Pattern $instanceName -SimpleMatch) {
+        Write-Host "Your jovyan single use container is found"
+        docker start $instanceName
+        }
+        else {
+            if (docker ps |  Out-String -stream | Select-String -Pattern $instanceName -SimpleMatch) {
+                Write-Host "Your jovyan single use container is already running"
+            }
+            else {
+                docker create -p 8888:8888 -p 4040-4060:4040-4060 -v ${jovyanWorkPath}:/home/jovyan/work -v ${jovyanDataPath}:/data -v ${jovyanTmpPath}:/tmp -e DSML_USER=jovyan `
+                --name "$instanceName" `
+                --memory-reservation=$memRequest `
+                --memory=$memLimit `
+                --cpus=$cpuLimit `
+                -w /home/jovyan/work `
+                buslovaev/sinara-notebook `
+                start-notebook.sh `
+                --ip=0.0.0.0 `
+                --port=8888 `
+                --NotebookApp.default_url=/lab `
+                --NotebookApp.token='' `
+                --NotebookApp.password=''
+                
+                Write-Host "Your jovyan single use container is created"
+            }
         }
     }
 }
