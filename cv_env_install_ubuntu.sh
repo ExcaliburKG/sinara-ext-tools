@@ -1,6 +1,8 @@
 #!/bin/bash
 
 set -e
+sudo apt-get update -y
+sudo apt-get upgrade -y
 sudo apt-get install unzip
 sudo apt-get install git
 
@@ -31,7 +33,7 @@ sudo apt-get install -y nvidia-container-toolkit
 # installing docker
 # https://docs.docker.com/engine/install/ubuntu
 
-for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do sudo apt-get remove -y $pkg; done
+for pkg in docker.io docker-doc docker-compose containerd runc; do sudo apt-get remove -y $pkg; done
 # Add Docker's official GPG key:
 sudo apt-get update -y
 sudo apt-get install -y ca-certificates curl gnupg
